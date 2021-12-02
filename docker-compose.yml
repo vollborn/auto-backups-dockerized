@@ -1,0 +1,17 @@
+version: "3.3"
+    
+services:
+
+  auto-backups-dockerized:
+    image: auto-backups-dockerized
+    build: ./src
+    restart: unless-stopped
+
+    volumes:
+      - /opt/test1:/source
+      - /opt/test2:/backup
+
+    environment:
+      SLEEP_DELAY: "${SLEEP_DELAY:-30m}"
+      ZIP_BACKUPS: "${ZIP_BACKUPS:-true}"
+      MAX_BACKUP_COUNT: "${MAX_BACKUP_COUNT:-20}"
