@@ -57,18 +57,18 @@ rollbackZip () {
 	rm "$backupName"
 
 	echo "Delete source directory contents..."
-	rm -rf "$sourcePath/*"
+	rm -rf "$sourcePath:?/*"
 
-	echo "Move rollbacked files..."
+	echo "Move files..."
 	mv $rollbackPath/* "$sourcePath"
 }
 
 rollbackDirectory () {
 	echo "Delete source directory contents..."
-	rm -rf "$sourcePath/*"
+	rm -rf "$sourcePath:?/*"
 
 	echo "Copying rollback files..."
-	cp -r $backupPath/$backupName/* "$sourcePath"
+	cp -r $backupPath/"$backupName"/* "$sourcePath"
 }
 
 ####################

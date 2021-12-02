@@ -1,5 +1,5 @@
 version: "3.3"
-    
+
 services:
 
   auto-backups-dockerized:
@@ -8,8 +8,8 @@ services:
     restart: unless-stopped
 
     volumes:
-      - /opt/test1:/source
-      - /opt/test2:/backup
+      - "${SOURCE_PATH}:/source"
+      - "${BACKUP_PATH}:/backup"
 
     environment:
       SLEEP_DELAY: "${SLEEP_DELAY:-30m}"

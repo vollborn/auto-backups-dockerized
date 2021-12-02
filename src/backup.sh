@@ -35,10 +35,11 @@ setDate () {
 deleteOldBackups () {
 	counter=0
 
-	backupList=( $(ls -1b $backupPath) )
+	# shellcheck disable=SC2207
+	backupList=( $(ls -1b "$backupPath") )
 	backupCount=${#backupList[@]}
 
-	deleteCount=$(expr $backupCount - $maxBackupCount)
+	deleteCount=$((backupCount - maxBackupCount))
 
 	if [[ $deleteCount -lt 1 ]]; then
 		echo "No backups to delete."
@@ -47,8 +48,8 @@ deleteOldBackups () {
 
 	while [[ $counter -lt $deleteCount ]]; do
 		echo "Deleting backup ${backupList[$counter]}..."
-		rm -rf "$backupPath/${backupList[$counter]}"
-		counter=$(expr $counter + 1)
+		rm -rf "$backupPath:?/${backupList[$counter]}"
+		counter=$((counter + 1))
 	done
 }
 
@@ -60,7 +61,8 @@ isTrue () {
 }
 
 doBackup () {
-	fileList=( $(ls -1b $sourcePath) )
+	# shellcheck disable=SC2207
+	fileList=( $(ls -1b "$sourcePath") )
 	if [[ "${#fileList[@]}" == "0" ]]; then
 		echo "No files to backup."
 		return
