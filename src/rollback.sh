@@ -57,7 +57,8 @@ rollbackZip () {
 	rm "$backupName"
 
 	echo "Delete source directory contents..."
-	rm -rf "$sourcePath:?/*"
+	# shellcheck disable=SC2115
+	rm -rf "$sourcePath/*"
 
 	echo "Move files..."
 	mv $rollbackPath/* "$sourcePath"
@@ -65,7 +66,8 @@ rollbackZip () {
 
 rollbackDirectory () {
 	echo "Delete source directory contents..."
-	rm -rf "$sourcePath:?/*"
+	# shellcheck disable=SC2115
+	rm -rf "$sourcePath/*"
 
 	echo "Copying rollback files..."
 	cp -r $backupPath/"$backupName"/* "$sourcePath"

@@ -48,7 +48,8 @@ deleteOldBackups () {
 
 	while [[ $counter -lt $deleteCount ]]; do
 		echo "Deleting backup ${backupList[$counter]}..."
-		rm -rf "$backupPath:?/${backupList[$counter]}"
+		# shellcheck disable=SC2115
+		rm -rf "$backupPath/${backupList[$counter]}"
 		counter=$((counter + 1))
 	done
 }
